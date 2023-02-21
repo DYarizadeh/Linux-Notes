@@ -1,0 +1,26 @@
+Secure File - file that logs security incidents. 
+/var/log/auth.log 
+File tracks new user creation, new group creation, logging in from remote system, changing of a user's password. 
+
+Access.log file - keeps track of web server connections (e.g. Apache) 
+/var/log/apache2/access.log
+Tracks IP address, user agent, Date/Time Stamps
+
+.bash_history - tracks commands typed in bash
+/home/user/.bash_history
+
+Linux OS system logs 
+/var/log/messages*
+ 
+Linux OS authentication logs 
+/var/log/secure* 
+/var/run/utmp 
+/var/log/wtmp* 
+/var/log/btmp*
+ 
+Scheduled tasks 
+/etc/cron.d/* 
+/etc/cron.daily/* 
+/etc/cron.weekly/* 
+/etc/cron.monthly/* 
+/etc/cron.allow /etc/cron.deny
