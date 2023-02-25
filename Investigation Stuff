@@ -24,3 +24,19 @@ Scheduled tasks
 /etc/cron.weekly/* 
 /etc/cron.monthly/* 
 /etc/cron.allow /etc/cron.deny
+
+Authorized SSH Keys - 
+The authorized_keys file can be placed in the <home>/.ssh/authorized_keys directory of each user in the machine.
+
+Is SSH enabled?
+/etc/ssh/sshd_config
+
+Check to see if a shell is configured on accounts that shouldn't have a shell
+/etc/passwd
+(no shell) www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+(yes shell) www-data:x:33:33:www-data:/var/www:/bin/bash
+
+Account Creation/Manipulation - Check modify time of: 
+/etc/passwd, /etc/shadow, /etc/gshadow and /etc/group
+
+Live forensics - 
