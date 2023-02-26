@@ -88,6 +88,14 @@ Shell scripts (config scripts executed on shell startup (e.g. ssh), can be modif
 
 Live forensics - 
 
+See open sockets and their processes -
+# only listening sockets 
+$ ss - l 
+
+# all sockets and their processes -
+$ ss -a 
+
+
 See processes and their parent-child relationship - 
 (process can have PPID of 1 when parent process ends without waiting for child to finish)
 $ ps -auxwf
