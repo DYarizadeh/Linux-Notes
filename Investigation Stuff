@@ -116,4 +116,5 @@ List services
 systemctl list-unit-files | grep generated -.mount
 
 
-
+Handy live forensics script - 
+https://github.com/jgasmussen/Linux-Baseline-and-Forensic-Triage-Tool/blob/main/LBFTT.sh
