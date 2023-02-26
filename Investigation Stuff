@@ -22,7 +22,7 @@ Depreciated systemd - if exists,systemd can boot executable script. Existance no
 /etc/rc.local
 cat /var/log/syslog | egrep "rc-local.service|/etc/rc.local Compatibility"
 
-/etc/init.d - traditional init for linux. Depreciated version of systemd. Can point to malicious executable script. 
+/etc/init.d - traditional init for linux. Depreciated version of systemd. Can point to malicious executable script. Also check for recently modified files. 
 /etc/init.d/*
 /etc/init/*
 /etc/rc.d/*
@@ -72,8 +72,40 @@ Check to see if a shell is configured on accounts that shouldn't have a shell
 Account Creation/Manipulation - Check modify time of: 
 /etc/passwd, /etc/shadow, /etc/gshadow and /etc/group
 
+Message of the day (script initiated as root when someone logs in via ssh) - 
+/etc/update-motd.d/*
+
+Shell scripts (config scripts executed on shell startup (e.g. ssh), can be modified) - 
+/etc/profile.d/*
+/etc/profile
+/etc/bash.bashrc
+/etc/bash.bash_logout
+/etc/*.bashrc
+~/.bash_profile
+~/.bash_login
+~/.profile
+`/.bash_logout
+
 Live forensics - 
+
+See processes and their parent-child relationship - 
+(process can have PPID of 1 when parent process ends without waiting for child to finish)
+$ ps -auxwf
+
+Search for scripts (PPID of 1 could indicated parent script/process ended before the script ended)
+$ ps -efj | egrep "python|bash|\bsh\b"
 
 rc.local 
 Check the status of the rc-local.service and see if it is not incative
-$ # systemctl status rc-local
+$  systemctl status rc-local
+
+inti.d 
+Check the status of the rc-local.service and see if it is not incative
+ls /var/run/systemd/generator.late/ #check for .service file existance
+$ systemctl status evil-init-d
+
+List services 
+systemctl list-unit-files | grep generated -.mount
+
+
+
