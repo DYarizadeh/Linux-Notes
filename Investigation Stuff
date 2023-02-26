@@ -9,21 +9,45 @@ Tracks IP address, user agent, Date/Time Stamps
 .bash_history - tracks commands typed in bash
 /home/user/.bash_history
 
-Linux OS system logs 
+Linux OS system logs -
 /var/log/messages*
  
-Linux OS authentication logs 
+Linux OS authentication logs -
 /var/log/secure* 
 /var/run/utmp 
 /var/log/wtmp* 
 /var/log/btmp*
  
-Scheduled tasks 
-/etc/cron.d/* 
-/etc/cron.daily/* 
-/etc/cron.weekly/* 
-/etc/cron.monthly/* 
+Scheduled tasks -
+/etc/crontab
+/etc/cron.d/*
+/etc/cron.{hourly,daily,weekly,monthly}/*
+/var/spool/cron/crontab/*
 /etc/cron.allow /etc/cron.deny
+
+Systemd (services; also check for .timer) -
+/etc/systemd/system/*.service
+/usr/local/lib/systemd/system/*.service
+/lib/systemd/system/*.service
+/usr/lib/systemd/system/*.service
+
+There are two lines we want to focus on:
+ExecStart: This is the command that is run when the service starts
+WantedBy: Having a value of multi-user.target means that the service should start on boot time.
+
+Suspicious indicator for services (errors and output in services wont be logged in syslog) 
+StandardOutput=null
+StandardError=null
+
+Locations for user defined services (also check for .timer)
+/home/user/.config/systemd/user/*.service
+/etc/systemd/user/*.service
+/home/user/.local/share/systemd/user/*.service
+/usr/local/share/systemd/user/*.service
+/usr/share/systemd/user/*.service
+/usr/local/lib/systemd/user/*.service
+/usr/lib/systemd/user/*.service
+
 
 Authorized SSH Keys - 
 The authorized_keys file can be placed in the <home>/.ssh/authorized_keys directory of each user in the machine.
