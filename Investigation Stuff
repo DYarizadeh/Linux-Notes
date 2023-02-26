@@ -17,6 +17,15 @@ Linux OS authentication logs -
 /var/run/utmp 
 /var/log/wtmp* 
 /var/log/btmp*
+
+Depreciated systemd - if exists,systemd can boot executable script. Existance not enough to prove execution. Evidence is in syslog (see grep)
+/etc/rc.local
+cat /var/log/syslog | egrep "rc-local.service|/etc/rc.local Compatibility"
+
+/etc/init.d - traditional init for linux. Depreciated version of systemd. Can point to malicious executable script. 
+/etc/init.d/*
+/etc/init/*
+/etc/rc.d/*
  
 Scheduled tasks -
 /etc/crontab
@@ -64,3 +73,7 @@ Account Creation/Manipulation - Check modify time of:
 /etc/passwd, /etc/shadow, /etc/gshadow and /etc/group
 
 Live forensics - 
+
+rc.local 
+Check the status of the rc-local.service and see if it is not incative
+$ # systemctl status rc-local
