@@ -34,7 +34,7 @@ Scheduled tasks -
 /var/spool/cron/crontab/*
 /etc/cron.allow /etc/cron.deny
 
-Systemd (services; also check for .timer) -
+Systemd (services; also check for *.timer) -
 /etc/systemd/system/*.service
 /usr/local/lib/systemd/system/*.service
 /lib/systemd/system/*.service
@@ -48,7 +48,7 @@ Suspicious indicator for services (errors and output in services wont be logged 
 StandardOutput=null
 StandardError=null
 
-Locations for user defined services (also check for .timer)
+Locations for user defined services (also check for *.timer)
 /home/user/.config/systemd/user/*.service
 /etc/systemd/user/*.service
 /home/user/.local/share/systemd/user/*.service
@@ -56,6 +56,15 @@ Locations for user defined services (also check for .timer)
 /usr/share/systemd/user/*.service
 /usr/local/lib/systemd/user/*.service
 /usr/lib/systemd/user/*.service
+
+Systemd-generators (small binaries that will execute earliest at bootup and at configuration reload time (before unit files and other services are loaded))
+Look for modification and creation time of systemd generators 
+/etc/systemd/system-generators/*
+/usr/local/lib/systemd/system-generators/*
+/lib/systemd/system-generators/*
+/etc/systemd/user-generators/*
+/usr/local/lib/systemd/user-generators/*
+/usr/lib/systemd/user-generators/*
 
 
 Authorized SSH Keys - 
@@ -121,5 +130,4 @@ https://github.com/jgasmussen/Linux-Baseline-and-Forensic-Triage-Tool/blob/main/
 
 Mounting a Linux LVM - 
 https://www.cyberciti.biz/faq/linux-mount-an-lvm-volume-partition-command/
-
 Sometimes if this doesn't work, use DiskInternals Linux Reader to convert the individual partition root partition from the .vmdk to .raw, then use quem-utils to convert the .raw to .vmdk and then use lvm to mount the .vmdk
