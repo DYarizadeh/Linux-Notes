@@ -6,6 +6,14 @@ Access.log file - keeps track of web server connections (e.g. Apache)
 /var/log/apache2/access.log
 Tracks IP address, user agent, Date/Time Stamps
 
+Various locations for logs and artifacts 
+/etc/hosts
+/etc/passwd
+/var/log/daemon.log
+/var/log/messages
+/var/log/secure
+/var/spool/mail/
+
 .bash_history - tracks commands typed in bash
 /home/user/.bash_history
 
