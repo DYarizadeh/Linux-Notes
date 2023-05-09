@@ -1,6 +1,11 @@
 Secure File - file that logs security incidents. 
 /var/log/auth.log 
+/var/log/secure (for CentOS/RH)
 File tracks new user creation, new group creation, logging in from remote system, changing of a user's password. 
+
+/var/run/utmp - Users/sessions currently logged in
+/var/run/wtmp - historical utmp data
+/var/run/btmp - failed login events 
 
 Access.log file - keeps track of web server connections (e.g. Apache) 
 /var/log/apache2/access.log
