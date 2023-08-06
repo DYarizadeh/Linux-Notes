@@ -24,8 +24,9 @@ Various locations for logs and artifacts
 .bash_history - tracks commands typed in bash
 /home/user/.bash_history
 
-Linux OS system logs -
-/var/log/messages*
+Linux OS system logs (equvilent to combining system and security logs) - Try grepping for root or CMD (or su on CentOS), or grep -v to exclude/filter out noisey events
+(CentOS/RHEL) /var/log/messages*
+(Ubuntu) /var/log/syslog 
  
 Linux OS authentication logs -
 /var/log/secure* 
