@@ -2,8 +2,9 @@ Linux logs are in syslog format and are in the timestamp based on the local time
 
 Secure File - file that logs security incidents. 
 /var/log/auth.log 
-/var/log/secure (for CentOS/RH)
-File tracks new user creation, new group creation, logging in from remote system, changing of a user's password. 
+/var/log/secure (for CentOS/RH) - File tracks new user creation, new group creation, logging in from remote system, changing of a user's password
+/var/log/audit/audit.log -Verbose Logging (file creations, process spawning, ect... not on by default in Ubuntu. Check for calls to modify timestamps)
+---Can use ausearch and aureport to interact with audit.log 
 
 Use last -F -f ./utmp|wtmp|btmp to point it at a mounted image (last by default reads local system file)
 Use wtmpdump for more verberose output
@@ -31,11 +32,6 @@ Linux OS system logs (equvilent to combining system and security logs) - Try gre
 (CentOS/RHEL) /var/log/messages*
 (Ubuntu) /var/log/syslog 
  
-Linux OS authentication logs -
-/var/log/secure* 
-/var/run/utmp 
-/var/log/wtmp* 
-/var/log/btmp*
 
 Depreciated systemd - if exists,systemd can boot executable script. Existance not enough to prove execution. Evidence is in syslog (see grep)
 /etc/rc.local
