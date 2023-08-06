@@ -1,3 +1,5 @@
+Linux logs are in syslog format and are in the timestamp based on the local time. Eavluate local time at (Debian/Redhat) /etc/localtime or /etc/timezone 
+
 Secure File - file that logs security incidents. 
 /var/log/auth.log 
 /var/log/secure (for CentOS/RH)
@@ -116,6 +118,8 @@ $ ss - l
 
 # all sockets and their processes -
 $ ss -a 
+
+Logs in /var/run are actually symbolic link to /run and stores volatil data. 
 
 
 See processes and their parent-child relationship - 
