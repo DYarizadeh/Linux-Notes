@@ -10,6 +10,7 @@ Use wtmpdump for more verberose output
 /var/run/utmp - Users/sessions currently logged in 
 /var/log/wtmp - historical utmp data
 /var/log/btmp - failed login events 
+/var/log/lastlog - last login for each user (must use on live system)
 
 Access.log file - keeps track of web server connections (e.g. Apache) 
 /var/log/apache2/access.log
