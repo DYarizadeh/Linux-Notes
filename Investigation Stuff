@@ -5,7 +5,9 @@ Secure File - file that logs security incidents.
 /var/log/secure (for CentOS/RH)
 File tracks new user creation, new group creation, logging in from remote system, changing of a user's password. 
 
-/var/run/utmp - Users/sessions currently logged in
+Use last -F -f ./utmp|wtmp|btmp to point it at a mounted image (last by default reads local system file)
+Use wtmpdump for more verberose output
+/var/run/utmp - Users/sessions currently logged in 
 /var/log/wtmp - historical utmp data
 /var/log/btmp - failed login events 
 
