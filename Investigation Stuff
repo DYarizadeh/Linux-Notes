@@ -15,7 +15,7 @@ Use wtmpdump for more verberose output
 
 Application Logs
 Access.log file - keeps track of web server connections (e.g. Apache) 
-/var/log/apache2/access.log
+/var/log/apache2/access_log
 Tracks IP address, user agent, Date/Time Stamps
 /var/log/nginx
 /var/log/httpd
