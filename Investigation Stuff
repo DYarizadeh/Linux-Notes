@@ -13,9 +13,16 @@ Use wtmpdump for more verberose output
 /var/log/btmp - failed login events 
 /var/log/lastlog - last login for each user (must use on live system)
 
+Application Logs
 Access.log file - keeps track of web server connections (e.g. Apache) 
 /var/log/apache2/access.log
 Tracks IP address, user agent, Date/Time Stamps
+/var/log/nginx
+/var/log/httpd
+/var/log/mail
+/var/log/mysqld.log
+/var/log/mysql.log
+/var/log/mariadb/*
 
 Various locations for logs and artifacts 
 /etc/hosts
