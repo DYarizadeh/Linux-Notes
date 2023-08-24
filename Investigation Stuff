@@ -152,6 +152,9 @@ systemctl list-unit-files | grep generated -.mount
 Handy live forensics script - 
 https://github.com/jgasmussen/Linux-Baseline-and-Forensic-Triage-Tool/blob/main/LBFTT.sh
 
+Handy dead forensic script -
+https://github.com/TazWake/Public/blob/master/Bash/triage_template.sh
+
 Mounting a Linux LVM - 
 https://www.cyberciti.biz/faq/linux-mount-an-lvm-volume-partition-command/
 Sometimes if this doesn't work, use DiskInternals Linux Reader to convert the individual partition root partition from the .vmdk to .raw, then use quem-utils to convert the .raw to .vmdk and then use lvm to mount the .vmdk
