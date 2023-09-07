@@ -2,6 +2,7 @@ Mounting NetScaler (FreeBSD/UFS (unix file system))
 
 Create copies of the VMDK's and copy them to a different folder
 Open SIFT VM in VMWare or equivilent
+Ls /dev to see what partitions exist (e.g. sda/sdb/sdc) so you can recgonize the before and after
 Add the VMDK's as added drives to the VM
 Boot VM
 Once booted, ls /dev/
