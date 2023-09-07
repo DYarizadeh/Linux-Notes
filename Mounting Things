@@ -1,0 +1,11 @@
+Mounting NetScaler (FreeBSD/UFS (unix file system))
+
+Create copies of the VMDK's and copy them to a different folder
+Open SIFT VM in VMWare or equivilent
+Add the VMDK's as added drives to the VM
+Boot VM
+Once booted, ls /dev/
+The added drives should be /dev/sdb* and /dev/sdc*
+In terminal type  "modprobe ufs"
+Mount the specific partition holding var
+mount -r -t ufs -o ufstype=ufs2 /dev/sdb8 /mnt/p8
