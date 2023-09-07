@@ -10,5 +10,7 @@ In terminal type  "modprobe ufs"
 Mount the specific partition holding var
 mount -r -t ufs -o ufstype=ufs2 /dev/sdb8 /mnt/p8
 
-
-The command mount -r -t ufs -o ufstype=ufs2 /dev/sdb8 /mnt/p8 mounts the UFS2 filesystem on /dev/sdb8 at the mount point /mnt/p8. The -r option specifies that the filesystem should be mounted read-only. The -t option specifies the filesystem type, which in this case is UFS2. The -o option specifies additional mount options, in this case the ufstype=ufs2 option, which specifies that the filesystem should be mounted as a UFS2 filesystem.
+The command mount -r -t ufs -o ufstype=ufs2 /dev/sdb8 /mnt/p8 mounts the UFS2 filesystem on /dev/sdb8 at the mount point /mnt/p8. 
+The -r option specifies that the filesystem should be mounted read-only. 
+The -t option specifies the filesystem type, which in this case is UFS2. 
+The -o option specifies additional mount options, in this case the ufstype=ufs2 option, which specifies that the filesystem should be mounted as a UFS2 filesystem.
