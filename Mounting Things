@@ -15,3 +15,12 @@ The command mount -r -t ufs -o ufstype=ufs2 /dev/sdb8 /mnt/p8 mounts the UFS2 fi
 The -r option specifies that the filesystem should be mounted read-only. 
 The -t option specifies the filesystem type, which in this case is UFS2. 
 The -o option specifies additional mount options, in this case the ufstype=ufs2 option, which specifies that the filesystem should be mounted as a UFS2 filesystem.
+
+
+
+If given a .aff: 
+
+convert to raw using affuse ( affuse /path/to/image.aff /mnt/aff) 
+fdisk -l image.aff.raw
+if microsoft - mount -t ntfs-3g -o rw,offset=$((starting offset * 512)) /mnt/aff/image.aff.raw /mnt/mount_point
+ls -la /mnt/mount_point
