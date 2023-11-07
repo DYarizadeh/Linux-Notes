@@ -149,6 +149,67 @@ List services
 systemctl list-unit-files | grep generated -.mount
 
 
+----------------------
+
+Common attacks:
+Brute force or exploit of public facing servers and applications. Attackers initial accss will be in the context of the application being exploited or the account that was authenitcated. 
+
+Creating new accounts and adding the accounts to different groups (requires admin privileges) 
+
+SSH Keys - attackers can create their own SSH keys and add to authorized_keys file. If system is configured to allow key based auth, this allowed them to regain access. 
+
+Modifying the /etc/sudo file lets attackers give privileges to normal users. The /etc/sudoers.d/ folder allows changes to surivive system updates. 
+
+Look for: 
+
+Modified user accounts - the attacker needs to get access and run applications, which means users accounts and login data might keep evidence 
+Strange entries in shell histroy - attacker is likely to start with shell access
+Text editor history files - if they compile exploits or shell scripts to avoid shell history, you can find evidence in the text editor history 
+Strange networking - attackers need to communicate with target system 
+Common persistance - attackers need to get back in after reboot 
+Altered files - as attackers move through system, things will be changed. This ranged from modifying existing files to implanting backdoors, to staging for exfil. 
+Suspicious log data 
+
+Common quick wins: 
+Check the secure log(s) for sudo use and commands issued 
+Check for user authentication (secure, auth.log or audit.log)
+Check the messages log for unusual notifications or warnings 
+Check the audit logs for commands issued 
+
+
+Other places to look for attacker residue 
+.bash_history 
+.lesshst
+.viminfo
+.mysql_history
+.python_history iiiiiiiiiiiiii
+.gdb_history
+.wget-hsts
+.local/share/nano/search_history
+/var/log/maillog - captures messages sent using sendmail 
+/var/log/mail.log - postfix 
+/var/log/firewalld - log data from system firewall 
+/var/log/syslog - search for IPTables data 
+/usr/local/samba/var/smbd.log and /usr/local/samba/var/nmbd.log - captures data from samba daemon. Useful when the system is in a mixed Windows/Linux enviornment 
+/var/log/samba/{smbd,nmbd}.log - Samba on ubuntu 
+
+Network activity - use lsof -Pni to display files associated with open sockets - look for unusually processes/files making network connections. Use netstat -nap to display all network connections
+
+/etc/hosts - containds local IP resolution data
+/etc/resolv.conf and /etc/system/resolved.conf - this contains DNS resolution configurations. Make sure nameserver settings are valid. 
+
+Processes - ps -auxw is a good starting point to list processes. Check start times that seem out of sequence (e.g. servers spawning after boot), validate user accounts are correct, check command line arguments for the process. 
+
+Files in /proc contain a wealth of information on running processes and can be an alternative to a full memory dump 
+
+Niche notes on SSH - if the attacke ris able to create a config file in the ~/.ssh folder or /etc/ssh/ssh-config, they can enable different authentication or tirgger RCE with a legit user logs in (e.g. using the ProxyCommand /home/user/evilscript.sh - as part of a config file. 
+
+In the SSH folder, check that authorized_keys and/or public/private keys have not been modified. 
+Validate SSH configuration files 
+
+
+---------------------------------------
+
 Handy live forensics script - 
 https://github.com/jgasmussen/Linux-Baseline-and-Forensic-Triage-Tool/blob/main/LBFTT.sh
 
