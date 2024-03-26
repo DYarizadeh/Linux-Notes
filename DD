@@ -1,0 +1,17 @@
+fdisk -l to find the partitions 
+for more information on a specific block device, do fdisk -l (block device) e.g. fdisk -l /sda
+
+
+/dev/sda, /dev/sdb, etc.: Block device files for hard drives or SSDs. The main drive is typically sda, with partitions numbered like /dev/sda1, /dev/sda2, etc.
+/dev/hda (historical): Used for IDE devices in older Linux distributions. Similar to /dev/sda but for IDE instead of SATA or SCSI devices.
+
+
+sudo dd if=/dev/sdx status=progress | gzip > /path/to/output.img.gz
+sudo dd if=/dev/sdy3 of=/path/to/backup_folder/partition3.img bs=4M status=progress conv=sync,noerror
+
+Block Size - 
+A commonly recommended starting point is bs=4M or bs=1M, as these sizes often provide a good balance between transfer speed and system load for a variety of devices and use cases.
+The default block size if not specified is 512 bytes, which is very small and can result in slower overall performance due to the overhead of handling many small blocks.
+
+SSD vs. HDD: SSDs can generally handle larger block sizes and parallel operations better than HDDs due to their faster read/write speeds and lack of mechanical parts.
+Network Storage: When dealing with network storage (e.g., NFS, SMB), the optimal block size might also depend on network bandwidth and latency. Testing with larger block sizes is often beneficial, but very large blocks might lead to issues with network stability or performance.
