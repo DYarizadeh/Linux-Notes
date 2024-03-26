@@ -1,6 +1,18 @@
 fdisk -l to find the partitions 
 for more information on a specific block device, do fdisk -l (block device) e.g. fdisk -l /sda
 
+The lsblk command lists all block devices and their sizes, including partitions. To see the size of, for example sda3, you can use:
+lsblk -o NAME,SIZE
+
+The df command shows the disk space usage of file systems. If sda3 is mounted, you can see its size and how much space is used and available:
+df -h
+
+The parted command can also show you the size of partitions with more detail:
+sudo parted /dev/sda print
+
+For a quick look at partition sizes and types, including sda3, you can use blkid:
+sudo blkid -o list
+While blkid is primarily used for showing the UUIDs and types of file systems, when used with -o list, it provides a summary that includes the size of mounted partitions.
 
 /dev/sda, /dev/sdb, etc.: Block device files for hard drives or SSDs. The main drive is typically sda, with partitions numbered like /dev/sda1, /dev/sda2, etc.
 /dev/hda (historical): Used for IDE devices in older Linux distributions. Similar to /dev/sda but for IDE instead of SATA or SCSI devices.
