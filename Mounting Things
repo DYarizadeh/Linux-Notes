@@ -24,3 +24,38 @@ convert to raw using affuse ( affuse /path/to/image.aff /mnt/aff)
 fdisk -l image.aff.raw
 if microsoft - mount -t ntfs-3g -o rw,offset=$((starting offset * 512)) /mnt/aff/image.aff.raw /mnt/mount_point
 ls -la /mnt/mount_point
+
+
+Mounting .img output from DD (e.g. from CP Gateway or if you get "unknown filesystem type 'LVM2_member'" when trying to mount) 
+1. Associate the image with a loop device: This step makes the image accessible as if it were a physical disk.
+sudo losetup --find --show yourimage.img
+
+2. Scan the loop device for LVM volumes: This makes the LVM volumes within your image recognizable to the system.
+The vgscan command scans all disk devices for LVM volume groups and builds up a cache of LVM metadata found. The vgchange -ay activates all known volume groups.
+sudo vgscan
+sudo vgchange -ay
+
+3. List the logical volumes: To see the logical volumes available in your image, you can use the lvs command or lvdisplay.
+sudo lvdisplay
+
+The following will assume /dev/VolGroup00/LogVol00 is the LVM on a loop device
+
+4. Create a mount point and mount the logical volume: Once you know the logical volume's path, you can mount it to a directory of your choice.
+sudo mkdir /mnt/myimage
+sudo mount /dev/VolGroup00/LogVol00 /mnt/myimage
+
+If you get the error the error "mount: /mnt/ewf: mount(2) system call failed: Structure needs cleaning."
+There is a filesystem corruption on the device you're attempting to mount. 
+This can happen due to various reasons, such as improper shutdowns, hardware issues, or interrupted write operations. 
+To resolve this, you'll need to run a filesystem check and repair operation. 
+The specific tool and command you use will depend on the filesystem type of the logical volume you're trying to mount.
+
+If you're unsure of the filesystem, you can simply use fsck directly, and it will attempt to detect the filesystem type and use the appropriate utility:
+sudo fsck -y /dev/VolGroup00/LogVol00
+
+For XFS, the repair tool is xfs_repair, and you don't need to mount the filesystem to repair it:
+sudo xfs_repair /dev/VolGroup00/LogVol00
+
+If the filesystem is ext2, ext3, or ext4
+sudo fsck.ext4 -y /dev/VolGroup00/LogVol00
+Replace fsck.ext4 with fsck.ext3 or fsck.ext2 if your filesystem is ext3 or ext2, respectively, and /dev/VolGroup00/LogVol00 with the path to your logical volume.
