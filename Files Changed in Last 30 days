@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Set the starting directory (preferably a specific directory)
+directory="$1"
+
+# Check if a directory is provided as an argument
+if [ -z "$directory" ]; then
+  echo "Please provide the directory to scan as the first argument."
+  exit 1
+fi
+
+# Find all files recursively, excluding hidden files, specific system directories, and skipping errors
+find "$directory" -type f -not -path "*/.*" \
+  -not -path "/proc/*" -not -path "/sys/*" -not -path "/dev/*" \
+  -not -path "/run/*" -not -path "/mnt/*" -not -path "/media/*" \
+  -not -path "/sys/fs/cgroup/*" -not -path "/var/log/*" -print 2>/dev/null | while read -r filename; do
+  # Check if the file was modified in the last 30 days
+  if [[ $(find "$filename" -mtime -30) ]]; then
+    # Get the modification time
+    modification_time=$(stat -c %y "$filename")
+
+    # Calculate and display the md5 hash
+    md5_hash=$(md5sum "$filename" | awk '{ print $1 }')
+
+    # Output filename, modification time, and md5 hash
+    echo "$filename:"
+    echo "  Modified time: $modification_time"
+    echo "  md5 hash: $md5_hash"
+    echo
+  fi
+done
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Usage: Usage: nohup ./script3.sh / > output.txt &
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
