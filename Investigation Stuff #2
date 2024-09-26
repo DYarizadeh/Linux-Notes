@@ -118,3 +118,10 @@ Tools for Linux Incident Response and Forensics:
 • Memory Analysis: volatility, lime
 • Disk Imaging: dd, dcfldd
 • System Monitoring: top, htop, ps, sar
+
+
+How I found the netcat listener - 135.125.107.221
+sudo ss -tnp | grep 135 (show me network connections that contain 135, and include information about the process ID)
+readlink -f /proc/998/exe (show me the file path for this process ID)
+file /dev/shm/gs-dbus (tell me about gs-dbus, what kind of file is it?)
+md5sum /dev/shm/gs-dbus (hash it for me please)
