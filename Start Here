@@ -1,0 +1,118 @@
+1. Authentication and Authorization Logs
+
+    /var/log/auth.log (or /var/log/secure on Red Hat-based systems):
+        This log tracks all authentication-related activities, including successful and failed login attempts, sudo usage, SSH logins, user creation, and password changes.
+        Useful for identifying unauthorized access attempts or compromised user accounts.
+        Commands to check:
+
+        bash
+
+        cat /var/log/auth.log
+        cat /var/log/secure
+
+2. System Logs
+
+    /var/log/syslog (or /var/log/messages on Red Hat-based systems):
+        This is a general-purpose log that records a wide range of system events. It includes kernel messages, hardware issues, startup and shutdown events, and daemon activity.
+        It can help in detecting system crashes, reboots, or suspicious activity.
+        Commands to check:
+
+        bash
+
+        cat /var/log/syslog
+        cat /var/log/messages
+
+3. Kernel Logs
+
+    /var/log/kern.log:
+        This log captures messages from the Linux kernel, which can provide insight into hardware failures, driver issues, and kernel-level security events.
+        It’s useful for detecting kernel panics or other critical system issues.
+        Command to check:
+
+        bash
+
+        cat /var/log/kern.log
+
+4. Audit Logs
+
+    /var/log/audit/audit.log:
+        If the Linux system uses the auditd service, this log contains detailed audit trails, including security events such as file accesses, changes to sensitive files, and administrative actions.
+        You can monitor unauthorized access attempts and the modification of system-critical files.
+        Command to check:
+
+        bash
+
+        cat /var/log/audit/audit.log
+
+5. Service-Specific Logs
+
+    /var/log/{service_name}.log (e.g., Apache, MySQL, Postfix):
+        Many services have their own logs. For example:
+            Apache Logs: /var/log/apache2/access.log and /var/log/apache2/error.log (or /var/log/httpd/ on Red Hat).
+            MySQL Logs: /var/log/mysql.log or /var/log/mysql/error.log.
+            Postfix Logs: /var/log/maillog.
+        These logs provide insights into the operation and potential abuse of specific services.
+
+6. User Activity Logs
+
+    ~/.bash_history (or history command):
+        This file stores the command history of each user. It can provide information on what commands were executed by a user during a session.
+        Command to check:
+
+        bash
+
+    cat ~/.bash_history
+
+/var/log/wtmp and /var/log/lastlog:
+
+    These logs contain information on user login and logout activities.
+    wtmp keeps a history of logins, reboots, and system activity, while lastlog tracks the most recent login of each user.
+    Commands to check:
+
+    bash
+
+        last
+        lastlog
+
+7. SSH Logs
+
+    /var/log/secure (on Red Hat) or /var/log/auth.log (on Debian):
+        These logs are particularly useful for tracking SSH login attempts and monitoring failed and successful remote access to the system.
+        Look for brute-force attempts, unusual login times, or login attempts from suspicious IP addresses.
+
+8. Cron Logs
+
+    /var/log/cron:
+        This log contains entries related to scheduled tasks (cron jobs) and their execution. Suspicious or unauthorized cron jobs could be a sign of compromise.
+        Command to check:
+
+        bash
+
+        cat /var/log/cron
+
+9. Dmesg Log
+
+    /var/log/dmesg:
+        This log captures kernel ring buffer messages, which can reveal hardware and driver issues, especially during boot time.
+        Command to check:
+
+        bash
+
+        dmesg
+
+10. X Session Logs
+
+    ~/.xsession-errors:
+        This file logs errors related to the graphical user interface (GUI). It can provide insights into user activity and errors encountered during their session in the GUI environment.
+        Command to check:
+
+        bash
+
+        cat ~/.xsession-errors
+
+11. Firewall Logs
+
+    If firewall logging is enabled (e.g., using iptables, ufw, or firewalld), these logs may contain entries showing connections that were blocked or allowed through the firewall.
+    Common location:
+        /var/log/ufw.log (for UFW)
+        /var/log/firewalld (for Firewalld)
