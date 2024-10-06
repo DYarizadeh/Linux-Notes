@@ -116,3 +116,7 @@
     Common location:
         /var/log/ufw.log (for UFW)
         /var/log/firewalld (for Firewalld)
+
+
+12. Journal Logs 
+    https://stuxnet999.github.io/dfir/linux-journal-forensics/
