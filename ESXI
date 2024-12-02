@@ -1,0 +1,44 @@
+ESXI - the virtualization host (proprietary flavor of Linux)
+vCenter - The management server (Linux appliance)
+vSphere - Marketing name for vCenter + ESXI 
+
+You cannot run some Linux tools on ESXI, which presents a challenge to the TA as well - their ransomware has to be adapted to ESXI. 
+Virtual Machines will not be running because they need to be stopped before the TA executes the encryption (VMDKs are locked on disk when running) 
+ESXI builds the file system every time it is booted, and the file system runs in the memory. This means you won't know if the ESXI host is encrypted until reboot. It will also make achieving persistence very difficult. 
+
+
+Need to know - were only the VMDKs encrypted or were the boot files for the ESXI server also encrypted?
+VMDKS are stored in /vmfs/volumes/datastore/
+Need to know if there is credential sharing between AD and vCenter - if ad is pwned, then attacker can access vCenter. If vCenter is pwned, then the root password to each ESXI server can be changed. 
+Need to know if there is traffic monitoring (e.g. a firewall) between the ESXI and the rest of the network 
+Need to know latest patching (VMware tools + ESXI) 
+Need to know where backups are, and make sure they are not in the ESXI 
+
+
+
+
+Attacks might start with port scan, brute force into vCenter, change password for ESXI.
+--/var/log/vmkernel.log - Look for repeated connection attempts or unusual traffic patterns to open ports.
+--/var/log/hostd.log - Logs related to vCenter operations or authentication attempts, including failed login attempts and successful brute force entries
+Attacks always enable SSH on ESXI - they need terminal to execute as well as transfer ransomware binary (FTP/SFTP)
+--/var/log/shell.log - Tracks actions related to enabling/disabling SSH and shell access.
+--/var/log/hostd.log - Contains events for changes to host settings, such as enabling SSH via vCenter or direct console.
+Attackers usually bring their own encryption binary, which means attacker will transfer from compromised host to ESXI
+--/var/log/aught.log - Monitors authentication attempts and file transfer activities like FTP/SFTP
+Ransomware binary usually ends up in a tmp folder, and will need to be chmod +x
+--/var/log/vmkernel.log - Logs execution and permission modification operations, such as chmod +x
+--/var/log/syslog.log - Tracks executed commands or scripts on the host
+Once binary is on host, attacker will enumerate and shut down VMs
+--/var/log/vpxa.log - Contains entries for vCenter agent operations, including enumeration or shutdown of VM
+--/var/log/hostd.log - Tracks VM operations like shutdowns initiated through ESXi management or scripts
+
+
+
+
+Response - need to get the logs - https://github.com/tclahr/uac
+
+Additional Recommendations - 
+Turn on execInstalledOnly (won't allow unsigned code to run)
+Turn on UFI Secure Boot - helps prevent persistence on ESXI 
+
+
